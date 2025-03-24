@@ -13,6 +13,15 @@ typedef struct s_da
 
 } t_data;
 
+typedef struct s_map
+{
+	int i;
+	int j;
+	int c;
+	int p;
+	int e;
+}t_map;
+
 int	ft_strlen(const char *s);
 char	*get_next_line(int fd);
 void	parsi_map(char *path_file, t_data *mlx);

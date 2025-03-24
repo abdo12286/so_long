@@ -13,6 +13,43 @@ void free_map (char **map)
 	free(map);
 }
 
+void exit_map(char **map)
+{
+	write(1,"Error\n",6);
+	write(1,"map invalid",12);
+	free_map(map);
+	exit(1);
+}
+
+char	*ft_strstr(char *str, char *to_find)
+{
+	int	i;
+	int	j;
+
+	if (to_find[0] == '\0')
+		return (str);
+	i = 0;
+	while (str[i] != '\0')
+	{
+		j = 0;
+	if (str[i] == to_find[j])
+	{
+		while (to_find[j] != '\0')
+		{
+		if (to_find[j] != str[i])
+			break ;
+		i++;
+		j++;
+		}
+		if (to_find[j] == '\0')
+			return (str + (i - j));
+	}
+	else
+		i++;
+	}
+	return (0);
+}
+
 int len_map(char *path_file)
 {
 	int fd;
@@ -39,6 +76,7 @@ char **get_map(char *path_file, int len)
 {
 	int fd;
 	int i;
+	char *r_l_line;
 	char **map;
 
 	fd = open(path_file, O_RDONLY);
@@ -53,9 +91,63 @@ char **get_map(char *path_file, int len)
 		map[i] =  get_next_line(fd);
 		i++;
 	}
+	r_l_line =  get_next_line(fd);
+	while(r_l_line)
+	{
+		if(r_l_line[0] != '\n')
+			exit_map(map);
+		r_l_line =  get_next_line(fd);
+	}
 	map[i] = NULL;
+
 	return(map);
 
+}
+
+void	check_nonvalid(char **map)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while(map[i][j])
+		{
+			if(map[i][j] != '0' &&  map[i][j] != '1' && map[i][j] != '\n' &&
+			map[i][j] != 'C' && map[i][j] != 'E' && map[i][j] != 'P')
+				exit_map(map);
+			j++;
+		}
+		i++;
+	}
+}
+void check_element(char **map)
+{
+	t_map mp;
+
+	mp.i = 0;
+	mp.c = 0;
+	mp.e = 0;
+	mp.p = 0;
+	while(map[mp.i])
+	{
+		mp.j = 0;
+		while(map[mp.i][mp.j])
+		{
+			if(map[mp.i][mp.j] == 'C')
+				mp.c++;
+			else if(map[mp.i][mp.j] == 'P')
+				mp.p++;
+			else if (map[mp.i][mp.j] == 'E')
+				mp.e++;
+			mp.j++;
+		}
+		mp.i++;
+	}
+	if(mp.c < 1 || mp.e != 1 || mp.p != 1)
+		exit_map(map);
 }
 
 int len_frst_line(char **map)
@@ -86,14 +178,17 @@ void	parsi_map(char *path_file, t_data *mlx)
 
 	fd = open(path_file, O_RDONLY);
 	if(fd == -1)
-		return;
-	mlx->map =get_map(path_file,len_map(path_file));
-	if(len_frst_line(mlx->map) == 1)
 	{
-		printf("map invalid");
-		free_map(mlx->map);
+		write(1,"Error\n",6);
+		write(1,"Only valid \".ber\" map files are allowed!",41);
 		exit(1);
 	}
+		
+	mlx->map =get_map(path_file,len_map(path_file));
+	if(len_frst_line(mlx->map) == 1)
+		exit_map(mlx->map);
+	check_nonvalid(mlx->map);
+	check_element(mlx->map);
 	free_map(mlx->map);	
 	
 }
