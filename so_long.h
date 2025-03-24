@@ -18,5 +18,6 @@ char	*get_next_line(int fd);
 void	parsi_map(char *path_file, t_data *mlx);
 int len_map(char *path_file);
 char **get_map(char *path_file, int len);
+int len_frst_line(char **map);
 
 #endif

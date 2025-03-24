@@ -10,10 +10,10 @@ int main(int ac, char **av)
 	}
 	t_data mlx;
 	parsi_map(av[1], &mlx);
-	for (size_t i = 0; mlx.map[i]; i++)
-	{
-		printf("%s",mlx.map[i]);
-	}
+	// for (size_t i = 0; mlx.map[i]; i++)
+	// {
+	// 	printf("%s",mlx.map[i]);
+	// }
 	
 		
 }

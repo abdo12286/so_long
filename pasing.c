@@ -1,5 +1,18 @@
 #include "so_long.h"
 
+void free_map (char **map)
+{
+	int i;
+
+	i = 0;
+	while (map[i])
+	{
+		free(map[i]);
+		i++;
+	}
+	free(map);
+}
+
 int len_map(char *path_file)
 {
 	int fd;
@@ -21,6 +34,7 @@ int len_map(char *path_file)
 	return(len);
 	
 }
+
 char **get_map(char *path_file, int len)
 {
 	int fd;
@@ -33,7 +47,6 @@ char **get_map(char *path_file, int len)
 	map = malloc(sizeof(char *) * (len + 1));
 	if(!map)
 		return(NULL);
- 
 	i = 0;
 	while (i < len)
 	{
@@ -44,15 +57,29 @@ char **get_map(char *path_file, int len)
 	return(map);
 
 }
+
 int len_frst_line(char **map)
 {
 	int i;
 	int j;
+	int k;
 
-	i = ft_strlen(map[i]);
-	while(map)
-
+	k = 1;
+	i = ft_strlen(map[0]);
+	if(map[0][i - 1] == '\n')
+			i--;
+	while(map[k])
+	{
+		j = ft_strlen(map[k]);
+		if(map[k][j - 1] == '\n')
+			j--;
+		if(j != i)	
+			return (1);
+		k++;
+	}
+	return(0);
 }
+
 void	parsi_map(char *path_file, t_data *mlx)
 {
 	int fd;
@@ -61,5 +88,12 @@ void	parsi_map(char *path_file, t_data *mlx)
 	if(fd == -1)
 		return;
 	mlx->map =get_map(path_file,len_map(path_file));
-
+	if(len_frst_line(mlx->map) == 1)
+	{
+		printf("map invalid");
+		free_map(mlx->map);
+		exit(1);
+	}
+	free_map(mlx->map);	
+	
 }
