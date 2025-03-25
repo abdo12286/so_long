@@ -6,6 +6,7 @@ int main(int ac, char **av)
 	if(ac != 2)
 	{
 		write(1,"Error\n",6);
+		write(1, "Give me fils",13);
 		exit(1);
 	}
 	t_data mlx;

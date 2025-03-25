@@ -20,6 +20,8 @@ typedef struct s_map
 	int c;
 	int p;
 	int e;
+	int pos_x;
+	int pos_y;
 }t_map;
 
 int	ft_strlen(const char *s);
@@ -28,5 +30,10 @@ void	parsi_map(char *path_file, t_data *mlx);
 int len_map(char *path_file);
 char **get_map(char *path_file, int len);
 int len_frst_line(char **map);
+void exit_map(char **map);
+void free_map (char **map);
+int ft_strstr(char *str, char *to_find);
+void check_dot_ber(char *path_file);
+void	check_nonvalid(char **map);
 
 #endif

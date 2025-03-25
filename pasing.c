@@ -21,31 +21,31 @@ void exit_map(char **map)
 	exit(1);
 }
 
-char	*ft_strstr(char *str, char *to_find)
+int ft_strstr(char *str, char *to_find)
 {
 	int	i;
 	int	j;
 
-	if (to_find[0] == '\0')
-		return (str);
+	if (!str)
+		return (0);
 	i = 0;
 	while (str[i] != '\0')
 	{
 		j = 0;
-	if (str[i] == to_find[j])
-	{
-		while (to_find[j] != '\0')
+		if (str[i] == to_find[j])
 		{
-		if (to_find[j] != str[i])
-			break ;
-		i++;
-		j++;
+			while (to_find[j] != '\0')
+			{
+				if (to_find[j] != str[i])
+					break ;
+				i++;
+				j++;
+			}
+			if (to_find[j] == '\0')
+				return (1);
 		}
-		if (to_find[j] == '\0')
-			return (str + (i - j));
-	}
-	else
-		i++;
+		else
+			i++;
 	}
 	return (0);
 }
@@ -103,7 +103,15 @@ char **get_map(char *path_file, int len)
 	return(map);
 
 }
-
+void check_dot_ber(char *path_file)
+{
+	if(ft_strstr(path_file,".ber") == 0)
+	{
+		write(1,"Error\n",6);
+		write(1, "I want file .ber", 17);
+		exit(1);
+	}
+}
 void	check_nonvalid(char **map)
 {
 	int i;
@@ -139,7 +147,11 @@ void check_element(char **map)
 			if(map[mp.i][mp.j] == 'C')
 				mp.c++;
 			else if(map[mp.i][mp.j] == 'P')
+			{
+				mp.pos_x = mp.i;
+				mp.pos_y = mp.j;
 				mp.p++;
+			}	
 			else if (map[mp.i][mp.j] == 'E')
 				mp.e++;
 			mp.j++;
@@ -183,7 +195,7 @@ void	parsi_map(char *path_file, t_data *mlx)
 		write(1,"Only valid \".ber\" map files are allowed!",41);
 		exit(1);
 	}
-		
+	check_dot_ber(path_file);	
 	mlx->map =get_map(path_file,len_map(path_file));
 	if(len_frst_line(mlx->map) == 1)
 		exit_map(mlx->map);
