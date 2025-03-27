@@ -1,6 +1,6 @@
 CC = cc 
 CFLAGS = -Wall -Wextra -Werror
-SERC = pasing.c gnl.c so_long.c
+SERC = pasing.c gnl.c so_long.c foold_fill.c parsing_utils.c parsing_utils_two.c
 NAME = so_long
 OBJ = $(SERC:.c=.o)
 
