@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 22:49:34 by atigzim           #+#    #+#             */
-/*   Updated: 2025/03/28 16:57:49 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/03/28 23:18:48 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,11 @@ typedef struct s_window
 	int		line_length;
 	int		endian;
 	int		moves;
-	int		collectibles;
+	void	*collectibles;
 	int		x;
 	int		y;
+	void 	*player;
+	void	*exit;
 }t_window;
 
 # define ESC	65307
