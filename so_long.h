@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 22:49:34 by atigzim           #+#    #+#             */
-/*   Updated: 2025/03/27 23:36:48 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/03/28 16:57:49 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ typedef struct s_da
 	char	**map;
 
 }			t_data;
+
+
 
 typedef struct s_map
 {
@@ -57,6 +59,14 @@ typedef struct s_window
 	int		x;
 	int		y;
 }t_window;
+
+# define ESC	65307
+# define W		119
+# define A		97
+# define S		115
+# define D		100
+# define CLOSE	17
+// # define TILE_SIZE 32
 
 int			ft_strlen(const char *s);
 char		*get_next_line(int fd);

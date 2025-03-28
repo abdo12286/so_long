@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 22:49:28 by atigzim           #+#    #+#             */
-/*   Updated: 2025/03/28 14:32:57 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/03/28 17:20:46 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,17 @@ int	width_map(char **map)
 	return (wi.width);
 }
 
+int key_press(int keycode ,char **map)
+{
+	
+    if (keycode == ESC  || keycode == CLOSE)
+    {
+		free_map(map);
+        exit(0); 
+    }
+    return (0);
+}
+
 void new_win(char **map)
 {
 	void *mlx;
@@ -56,8 +67,9 @@ void new_win(char **map)
 	}
 	wi.height = height_map(map);
 	wi.width = width_map(map);
-	win = mlx_new_window(mlx,800,800,"so_long");
-
+	wi.img = mlx_xpm_file_to_image(mlx, "assets/pec.xpm",&wi.width,&wi.height);
+	win = mlx_new_window(mlx,wi.width * 32, wi.height * 32 ,"so_long");
+	mlx_key_hook(win, key_press, NULL);
 	mlx_loop(mlx);
 }
 
