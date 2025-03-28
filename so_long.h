@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 22:49:34 by atigzim           #+#    #+#             */
-/*   Updated: 2025/03/26 22:49:35 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/03/27 23:36:48 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <mlx.h>
 
 typedef struct s_da
 {
@@ -34,6 +35,28 @@ typedef struct s_map
 	int		pos_x;
 	int		pos_y;
 }			t_map;
+
+typedef struct s_window
+{
+	void	*mlx;
+	void	*window;
+	void	*img;
+	char	*addr;
+	char	*left;
+	char	*right;
+	char	*up;
+	char	*down;
+	char	**map;
+	int		width;
+	int		height;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int		moves;
+	int		collectibles;
+	int		x;
+	int		y;
+}t_window;
 
 int			ft_strlen(const char *s);
 char		*get_next_line(int fd);
