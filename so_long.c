@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 22:49:28 by atigzim           #+#    #+#             */
-/*   Updated: 2025/03/28 23:43:26 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/03/29 02:57:35 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,14 @@
 int	height_map(char **map)
 {
 	int i;
-	int j;
-	int k;
+	// int j;
+	// int k;
 
-	i = 0;
-	k = 0;
+	 i = 0;
+	// k = 0;
 	while(map[i])
-	{
-		 j = 0;
-		while(map[i][j])
-		{
-			if(map[i][j] == '\n')
-				k++;
-			j++;
-		}
 		i++;
-	}
-	return (k);
+	return (i);
 }
 
 int	width_map(char **map)
@@ -79,25 +70,44 @@ void new_win(char **map)
 {
 	void *mlx;
 	void	*win;
+	t_map mp;
 	t_window wi;
-	int a;
-	int b;
+	int a = 32;
+	int b = 32;
+	mp.pos_x = 0;
+	
 	mlx = mlx_init();
 	if(!mlx)
 	{
 		free_map(map);
 		write(1, "Error\n", 6);
 	}
-	wi.player =  mlx_xpm_file_to_image(mlx, "pec.xpm",&a,&b); // hia li kathawel lik l file mn xpm lwahed l forma li t9der t afichiha fl window , kat returni pointer
-	wi.collectibles = mlx_xpm_file_to_image(mlx, "assets/coins.xpm",&a,&b);
-	wi.exit = mlx_xpm_file_to_image(mlx,"assets/exit.xpm",&a,&b);
 	wi.height = height_map(map);
-	// printf("%d",wi.height);
 	wi.width = width_map(map);
 	win = mlx_new_window(mlx,wi.width * 32, wi.height * 32 ,"so_long");
-	mlx_put_image_to_window(mlx,win,wi.player, 12, 12); // hna fin bgheti thet hadak tswira 
-	mlx_put_image_to_window(mlx,win,wi.collectibles,64, 64);
-	mlx_put_image_to_window(mlx,win,wi.exit,32, 32);
+	wi.player =  mlx_xpm_file_to_image(mlx, "assets/pac.xpm",&a,&b); // hia li kathawel lik l file mn xpm lwahed l forma li t9der t afichiha fl window , kat returni pointer
+	wi.collectibles = mlx_xpm_file_to_image(mlx, "assets/coins.xpm",&a,&b);
+	wi.exit = mlx_xpm_file_to_image(mlx,"assets/portal.xpm",&a,&b);
+	wi.bg = mlx_xpm_file_to_image(mlx, "assets/wall.xpm",&a,&b);
+	while(map[mp.pos_x])
+	{
+		mp.pos_y = 0;
+		while(map[mp.pos_x][mp.pos_y])
+		{
+			if(map[mp.pos_x][mp.pos_y]  == '1')
+				mlx_put_image_to_window(mlx,win,wi.bg,mp.pos_y* 32, mp.pos_x * 32);
+			else if(map[mp.pos_x][mp.pos_y]  == 'P')
+				mlx_put_image_to_window(mlx,win,wi.player,mp.pos_y * 32, mp.pos_x *32); // hna fin bgheti thet hadak tswira 
+			else if(map[mp.pos_x][mp.pos_y]  == 'C')
+				mlx_put_image_to_window(mlx,win,wi.collectibles, mp.pos_y * 32, mp.pos_x * 32);
+			else if(map[mp.pos_x][mp.pos_y]  == 'E')
+				mlx_put_image_to_window(mlx,win,wi.exit,mp.pos_y * 32, mp.pos_x *32);
+			mp.pos_y++;
+			
+		}
+		mp.pos_x++;
+	}
+	
 	mlx_key_hook(win, key_press, NULL);
 	mlx_hook(win,17,a,sed,NULL);
 	mlx_loop(mlx);

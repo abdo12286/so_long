@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 22:49:14 by atigzim           #+#    #+#             */
-/*   Updated: 2025/03/26 22:51:17 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/03/29 02:48:44 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_strlen(const char *s)
 	i = 0;
 	if (!s)
 		return (0);
-	while (s && s[i])
+	while (s && s[i] && s[i])
 		i++;
 	return (i);
 }
