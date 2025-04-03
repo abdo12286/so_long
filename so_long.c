@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 22:49:28 by atigzim           #+#    #+#             */
-/*   Updated: 2025/04/03 12:35:24 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/04/03 18:38:36 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,8 @@
 int	height_map(char **map)
 {
 	int i;
-	// int j;
-	// int k;
 
-	 i = 0;
-	// k = 0;
+	i = 0;
 	while(map[i])
 		i++;
 	return (i);
@@ -49,35 +46,118 @@ int	width_map(char **map)
 		
 // 	}
 	
-	
-	
-// }
-int d_mov(int x, int y, t_window *mlx)
+void draw_map(t_window *mlx, char **map)
 {
-	if(mlx->map[x][y] == '1')
-		return(1);
-        if (mlx->map[x][y] != '1')
+	int pos_x;
+	int pos_y;
+	
+	pos_x = 0;
+	while(map[pos_x])
 	{
-		mlx->map[x][y = 1] = 'P';
-		mlx->map[x][y] = '0';   
+		pos_y = 0;
+		while(map[pos_x][pos_y])
+		{
+			if(map[pos_x][pos_y]  == '1')
+				mlx_put_image_to_window(mlx->mlx, mlx->window,mlx->bg,pos_y* 32, pos_x * 32);
+			else if(map[pos_x][pos_y]  == 'P')
+				mlx_put_image_to_window(mlx->mlx, mlx->window,mlx->player,pos_y * 32, pos_x *32); // hna fin bgheti thet hadak tswira 
+			else if(map[pos_x][pos_y]  == 'C')
+				mlx_put_image_to_window(mlx->mlx, mlx->window,mlx->collectibles, pos_y * 32, pos_x * 32);
+			else if(map[pos_x][pos_y]  == 'E')
+			{
+				mlx->mp->pos_x_e = pos_x;
+				mlx->mp->pos_y_e = pos_y;
+			}
+			// 	mlx_put_image_to_window(mlx->mlx, mlx->window,mlx->exit,pos_y * 32, pos_x *32);
+			pos_y++;
+		}
+		pos_x++;
 	}
-    return 0;
 }
-int key_press(int keycode , t_window *mlx,t_map mp)
+
+void mov_A_S(t_window *mlx, int keycode)
 {
-	// printf("pos_x  (%d)\n", mp.pos_x);
-	(void) mp;
+	if(keycode == S)
+	{
+		if(mlx->map[mlx->mp->pos_y + 1][mlx->mp->pos_x] == 'E' && mlx->mp->c == 0)
+		 exit(0);
+		if(mlx->map && mlx->map[mlx->mp->pos_y + 1][mlx->mp->pos_x] != '1')
+		{
+			if( mlx->map[mlx->mp->pos_y + 1][mlx->mp->pos_x] == 'C')
+				mlx->mp->c--;
+			mlx->map[mlx->mp->pos_y + 1][mlx->mp->pos_x] = 'P';
+			mlx->map[mlx->mp->pos_y][mlx->mp->pos_x]  = '0';
+			mlx->mp->pos_y++;
+		}
+	}
+	else if(keycode == A)
+	{
+		if(mlx->map[mlx->mp->pos_y][mlx->mp->pos_x - 1] == 'E' && mlx->mp->c == 0)
+		 	exit(0);
+		if(mlx->map && mlx->map[mlx->mp->pos_y][mlx->mp->pos_x - 1] != '1')
+		{
+			if( mlx->map[mlx->mp->pos_y][mlx->mp->pos_x - 1] == 'C')
+				mlx->mp->c--;
+			mlx->map[mlx->mp->pos_y][mlx->mp->pos_x - 1] = 'P';
+			mlx->map[mlx->mp->pos_y][mlx->mp->pos_x]  = '0';
+			mlx->mp->pos_x--;
+		}
+	}
+}
+
+void mov_D_W(t_window *mlx, int keycode)
+{
+	if(keycode == D)
+	{
+		if(mlx->map[mlx->mp->pos_y][mlx->mp->pos_x + 1] == 'E' && mlx->mp->c == 0)
+			 exit(0);
+		if(mlx->map && mlx->map[mlx->mp->pos_y][mlx->mp->pos_x + 1] != '1')
+		{
+			if( mlx->map[mlx->mp->pos_y][mlx->mp->pos_x + 1] == 'C')
+				mlx->mp->c--;
+			mlx->map[mlx->mp->pos_y][mlx->mp->pos_x + 1] = 'P';
+			mlx->map[mlx->mp->pos_y][mlx->mp->pos_x]  = '0';
+			mlx->mp->pos_x++;
+		}
+	}
+	else if(keycode == W)
+	{
+		if(mlx->map[mlx->mp->pos_y - 1][mlx->mp->pos_x] == 'E' && mlx->mp->c == 0)
+		 	exit(0);
+		if(mlx->map && mlx->map[mlx->mp->pos_y - 1][mlx->mp->pos_x] != '1')
+		{
+			if( mlx->map[mlx->mp->pos_y - 1][mlx->mp->pos_x] == 'C')
+				mlx->mp->c--;
+			mlx->map[mlx->mp->pos_y - 1][mlx->mp->pos_x] = 'P';
+			mlx->map[mlx->mp->pos_y][mlx->mp->pos_x]  = '0';
+			mlx->mp->pos_y--;
+		}
+	}
+}
+
+int key_press(int keycode , t_window *mlx)
+{
+	
     if (keycode == ESC)
     {
 		free_map(mlx->map);
         exit(0); 
     }
-	// if(keycode == 100)
-	// {
-	// 	d_mov()
-	// }
+	if(keycode == D  || keycode == W)
+		mov_D_W(mlx, keycode);
+	if(keycode == A || keycode == S)
+		mov_A_S(mlx, keycode);
+	mlx_clear_window(mlx->mlx, mlx->window);
+	printf(" c = %d\n",mlx->mp->c);
+	if(mlx->mp->c == 0)
+	{
+		mlx_put_image_to_window(mlx->mlx, mlx->window,mlx->exit, mlx->mp->pos_y_e * 32, mlx->mp->pos_x_e *32);
+		mlx->map[mlx->mp->pos_x_e][mlx->mp->pos_y_e] = 'E';
+	}
+	draw_map(mlx, mlx->map);
     return (0);
 }
+
 int sed(void)
 {
 	exit(0);
@@ -103,40 +183,23 @@ void load_images(t_window *mlx)
 
 void new_win(t_window *mlx, char **map)
 {
-	t_map mp;
+	// t_map mp;
 	
 	mlx->height = height_map(map);
 	mlx->width = width_map(map);
 	mlx->window = mlx_new_window(mlx->mlx, mlx->width * 32, mlx->height * 32 ,"so_long");
 	load_images(mlx);
-	mp.pos_x = 0;
-	while(map[mp.pos_x])
-	{
-		mp.pos_y = 0;
-		while(map[mp.pos_x][mp.pos_y])
-		{
-			if(map[mp.pos_x][mp.pos_y]  == '1')
-				mlx_put_image_to_window(mlx->mlx, mlx->window,mlx->bg,mp.pos_y* 32, mp.pos_x * 32);
-			else if(map[mp.pos_x][mp.pos_y]  == 'P')
-			{
-				mlx_put_image_to_window(mlx->mlx, mlx->window,mlx->player,mp.pos_y * 32, mp.pos_x *32); // hna fin bgheti thet hadak tswira 
-			}	
-			else if(map[mp.pos_x][mp.pos_y]  == 'C')
-				mlx_put_image_to_window(mlx->mlx, mlx->window,mlx->collectibles, mp.pos_y * 32, mp.pos_x * 32);
-			else if(map[mp.pos_x][mp.pos_y]  == 'E')
-				mlx_put_image_to_window(mlx->mlx, mlx->window,mlx->exit,mp.pos_y * 32, mp.pos_x *32);
-			mp.pos_y++;
-			
-		}
-		mp.pos_x++;
-	}
+	// mp.pos_x = 0;
+	draw_map(mlx, map);
 }
 
 int	main(int ac, char **av)
 {
 	t_window	mlx;
 	
-
+	mlx.mp = malloc(sizeof(t_map));
+	if(!mlx.mp)
+		return (0);
 	if (ac != 2)
 	{
 		write(1, "Error\n", 6);
@@ -150,10 +213,9 @@ int	main(int ac, char **av)
 		return (2);
 	}
 	mlx.map = NULL;
-	parsi_map(av[1], &mlx);
+	parsi_map(av[1], &mlx, mlx.mp);
 	new_win(&mlx, mlx.map);
 	mlx_key_hook(mlx.window, key_press, &mlx);
-	// ?mlx_key_hook(win,d_mov , NULL);
 	mlx_hook(mlx.window, 17, 0, sed, NULL);
 	mlx_loop(mlx.mlx);
 }

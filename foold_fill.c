@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 22:49:07 by atigzim           #+#    #+#             */
-/*   Updated: 2025/04/03 13:01:03 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/04/03 16:56:56 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,25 @@ char	*ft_strdup(const char *s)
 int	check_element_copy(char **map, t_map *mp)
 {
 	mp->i = 0;
-	mp->c = 0;
-	mp->e = 0;
-	mp->p = 0;
+	int c = 0;
+	int e = 0;
+	int p = 0;
 	while (map[mp->i])
 	{
 		mp->j = 0;
 		while (map[mp->i][mp->j])
 		{
 			if (map[mp->i][mp->j] == 'C')
-				mp->c++;
+				c++;
 			else if (map[mp->i][mp->j] == 'P')
-				mp->p++;
+				p++;
 			else if (map[mp->i][mp->j] == 'E')
-				mp->e++;
+				e++;
 			mp->j++;
 		}
 		mp->i++;
 	}
-	if (mp->c != 0 || mp->e != 0 || mp->p != 0)
+	if (c != 0 || e != 0 || p != 0)
 		return (1);
 	return (0);
 }

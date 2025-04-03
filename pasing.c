@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 22:49:25 by atigzim           #+#    #+#             */
-/*   Updated: 2025/04/03 13:05:28 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/04/03 16:52:59 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	check_element(char **map, t_map *mp)
 	}
 	if (mp->c < 1 || mp->e != 1 || mp->p != 1)
 		exit_map(map);
+	// printf("c =   %d\n",mp->c);
 }
 
 int	len_frst_line(char **map)
@@ -72,11 +73,11 @@ void	error_fd(void)
 	exit(1);
 }
 
-void	parsi_map(char *path_file, t_window *mlx)
+void	parsi_map(char *path_file, t_window *mlx, t_map	*mp)
 {
 	int		fd;
 	char	**a;
-	t_map	mp;
+	
 
 	fd = open(path_file, O_RDONLY);
 	if (fd == -1)
@@ -88,13 +89,15 @@ void	parsi_map(char *path_file, t_window *mlx)
 	if (len_frst_line(mlx->map) == 1)
 		exit_map(mlx->map);
 	check_nonvalid(mlx->map);
-	check_element(mlx->map, &mp);
+	check_element(mlx->map, mp);
 	a = map_copy(mlx->map, path_file);
-	foold_fill(mp.pos_x, mp.pos_y, a);
-	if (check_element_copy(a, &mp) == 1)
+	foold_fill(mp->pos_x, mp->pos_y, a);
+	printf("c =   %d\n",mp->c);
+	if (check_element_copy(a, mp) == 1)
 	{
 		free_map(a);
 		exit_map(mlx->map);
 	}
+	
 	free_map(a);
 }
