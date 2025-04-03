@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 22:49:22 by atigzim           #+#    #+#             */
-/*   Updated: 2025/03/27 12:59:23 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/04/03 12:32:13 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	free_map(char **map)
 		i++;
 	}
 	free(map);
+	map = NULL;
 }
 
 void	exit_map(char **map)

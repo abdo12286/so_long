@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 22:49:07 by atigzim           #+#    #+#             */
-/*   Updated: 2025/03/26 22:49:08 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/04/03 13:01:03 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ char	**map_copy(char **map, char *path_file)
 
 void	foold_fill(int x, int y, char **map)
 {
+	// printf("  x=   %d   y =  %d  \n", x, y);
 	if (map[y][x] == '1' || map[y][x] == 'Q')
 		return ;
 	map[y][x] = 'Q';

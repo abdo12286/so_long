@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 22:49:34 by atigzim           #+#    #+#             */
-/*   Updated: 2025/03/29 01:41:42 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/04/01 18:48:18 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@
 # include <unistd.h>
 # include <mlx.h>
 
-typedef struct s_da
-{
-	char	**map;
+// typedef struct s_da
+// {
+// 	char	**map;
 
-}			t_data;
+// }			t_data;
 
 
 
@@ -61,7 +61,7 @@ typedef struct s_window
 	void 	*player;
 	void	*exit;
 	void 	*bg;
-}t_window;
+} t_window;
 
 # define ESC	65307
 # define W		119
@@ -73,7 +73,7 @@ typedef struct s_window
 
 int			ft_strlen(const char *s);
 char		*get_next_line(int fd);
-void		parsi_map(char *path_file, t_data *mlx);
+void		parsi_map(char *path_file, t_window *mlx);
 int			len_map(char *path_file);
 char		**get_map(char *path_file, int len);
 int			len_frst_line(char **map);

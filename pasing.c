@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 22:49:25 by atigzim           #+#    #+#             */
-/*   Updated: 2025/03/27 22:58:52 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/04/03 13:05:28 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	error_fd(void)
 	exit(1);
 }
 
-void	parsi_map(char *path_file, t_data *mlx)
+void	parsi_map(char *path_file, t_window *mlx)
 {
 	int		fd;
 	char	**a;
