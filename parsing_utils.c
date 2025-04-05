@@ -6,76 +6,72 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 22:49:22 by atigzim           #+#    #+#             */
-/*   Updated: 2025/04/03 12:32:13 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/04/05 18:32:33 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	free_map(char **map)
+void	ft_putstr_fd(char *s, int fd)
 {
-	int	i;
-
-	if (!map)
+	if (!s)
 		return ;
-	i = 0;
-	while (map[i])
-	{
-		free(map[i]);
-		map[i] = NULL;
-		i++;
-	}
-	free(map);
-	map = NULL;
+	write(fd, s, ft_strlen(s));
 }
 
-void	exit_map(char **map)
-{
-	write(1, "Error\n", 6);
-	write(1, "map invalid", 12);
-	free_map(map);
-	exit(1);
-}
-
-void	check_word(char **map, char *path_file)
+void	check_word(char **map, t_map *mp)
 {
 	int	len_line;
+	int	len;
 	int	len_m;
 	int	i;
 
-	len_line = ft_strlen(map[0]);
-	len_m = len_map(path_file);
+	len_line = ft_strlen(map[0]) - 1;
+	i = 1;
+	while (map[i])
+	{
+		len = ft_strlen(map[i]);
+		if (map[i][len - 1] == '\n')
+			len -= 1;
+		if (len_line != len)
+			(free(mp), exit_map(map));
+		i++;
+	}
+	len_m = i;
 	i = 0;
 	while (i < len_m)
 	{
-		if (map[i][len_line - 2] != '1' || map[i][0] != '1')
-			exit_map(map);
+		if (map[i][len_line - 1] != '1' || map[i][0] != '1')
+			(free(mp), exit_map(map));
 		i++;
 	}
 }
 
-void	check_word_two(char **map, char *path_file)
+void	cl_exit(char **map, t_map *mp)
 {
-	int	i;
-	int	j;
-	int	len;
+	free(mp);
+	exit_map(map);
+}
 
+void	check_word_two(char **map, char *path_file, t_map *mp)
+{
+	int (i), (j), (len);
 	i = 0;
 	j = 0;
 	len = len_map(path_file);
 	if (len == 0)
-		exit_map(map);
+		cl_exit(map, mp);
 	while (map[i][j])
 	{
 		if (map[i][j] != '1' && map[i][j] != '\n')
-			exit_map(map);
+			cl_exit(map, mp);
 		j++;
 	}
 	j = 0;
 	while (map[len - 1][j])
 	{
 		if (map[len - 1][j] != '1' && map[len - 1][j] != '\n')
-			exit_map(map);
+			cl_exit(map, mp);
 		j++;
 	}
 }

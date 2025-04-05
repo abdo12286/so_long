@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 22:49:19 by atigzim           #+#    #+#             */
-/*   Updated: 2025/03/27 14:48:17 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/04/05 18:03:39 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,14 @@ int	len_map(char *path_file)
 	return (len);
 }
 
-void	loop_map(char	*r_l_line, int fd, char **map)
+void	loop_map(char *r_l_line, int fd, char **map, t_map *mp)
 {
 	while (r_l_line)
 	{
 		if (r_l_line[0] != '\n')
 		{
 			free(r_l_line);
+			free(mp);
 			exit_map(map);
 		}
 		free(r_l_line);
@@ -47,7 +48,7 @@ void	loop_map(char	*r_l_line, int fd, char **map)
 	}
 }
 
-char	**get_map(char *path_file, int len)
+char	**get_map(char *path_file, int len, t_map *mp)
 {
 	int		fd;
 	int		i;
@@ -68,21 +69,29 @@ char	**get_map(char *path_file, int len)
 	}
 	map[i] = NULL;
 	r_l_line = get_next_line(fd);
-	loop_map (r_l_line, fd, map);
+	loop_map(r_l_line, fd, map, mp);
 	return (map);
 }
 
-void	check_dot_ber(char *path_file)
+void	check_dot_ber(char *path_file, t_map *mp)
 {
+	if (ft_strlen(path_file) <= 9)
+	{
+		free(mp);
+		write(1, "Error\n", 6);
+		write(1, "Only valid \".ber\" map files are allowed!", 41);
+		exit(1);
+	}
 	if (ft_strstr(path_file, ".ber") == 0)
 	{
+		free(mp);
 		write(1, "Error\n", 6);
 		write(1, "I want file .ber", 17);
 		exit(1);
 	}
 }
 
-void	check_nonvalid(char **map)
+void	check_nonvalid(char **map, t_map *mp)
 {
 	int	i;
 	int	j;
@@ -95,7 +104,10 @@ void	check_nonvalid(char **map)
 		{
 			if (map[i][j] != '0' && map[i][j] != '1' && map[i][j] != '\n'
 				&& map[i][j] != 'C' && map[i][j] != 'E' && map[i][j] != 'P')
+			{
+				free(mp);
 				exit_map(map);
+			}
 			j++;
 		}
 		i++;

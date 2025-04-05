@@ -1,8 +1,9 @@
 CC = cc 
 CFLAGS = -Wall -Wextra -Werror
-SERC = pasing.c gnl.c so_long.c foold_fill.c parsing_utils.c parsing_utils_two.c
+SERC =  pasing.c gnl.c so_long.c flood_fill.c parsing_utils.c \
+		parsing_utils_two.c helps_fun.c clear_file.c move.c
 NAME = so_long
-MLX = mlx/libmlx_Linux.a -lX11 -lXext
+MLX = -Lmlx -lmlx -lX11 -lXext
 OBJ = $(SERC:.c=.o)
 
 all : $(NAME)

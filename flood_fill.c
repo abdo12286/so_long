@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   foold_fill.c                                       :+:      :+:    :+:   */
+/*   flood_fill.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 22:49:07 by atigzim           #+#    #+#             */
-/*   Updated: 2025/04/03 16:56:56 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/04/05 15:58:44 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,11 @@ char	*ft_strdup(const char *s)
 
 int	check_element_copy(char **map, t_map *mp)
 {
+	int (c), (e), (p);
 	mp->i = 0;
-	int c = 0;
-	int e = 0;
-	int p = 0;
+	c = 0;
+	e = 0;
+	p = 0;
 	while (map[mp->i])
 	{
 		mp->j = 0;
@@ -79,14 +80,13 @@ char	**map_copy(char **map, char *path_file)
 	return (copy_map);
 }
 
-void	foold_fill(int x, int y, char **map)
+void	flood_fill(int x, int y, char **map)
 {
-	// printf("  x=   %d   y =  %d  \n", x, y);
 	if (map[y][x] == '1' || map[y][x] == 'Q')
 		return ;
 	map[y][x] = 'Q';
-	foold_fill(x + 1, y, map);
-	foold_fill(x - 1, y, map);
-	foold_fill(x, y + 1, map);
-	foold_fill(x, y - 1, map);
+	flood_fill(x + 1, y, map);
+	flood_fill(x - 1, y, map);
+	flood_fill(x, y + 1, map);
+	flood_fill(x, y - 1, map);
 }

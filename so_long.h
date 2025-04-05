@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 22:49:34 by atigzim           #+#    #+#             */
-/*   Updated: 2025/04/03 18:07:37 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/04/05 18:02:05 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 # define SO_LONG_H
 
 # include <fcntl.h>
+# include <mlx.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <mlx.h>
 
 typedef struct s_map
 {
@@ -52,38 +52,53 @@ typedef struct s_window
 	void	*collectibles;
 	int		x;
 	int		y;
-	void 	*player;
+	void	*player;
 	void	*exit;
-	void 	*bg;
+	void	*bg;
 	t_map	*mp;
-} t_window;
+}			t_window;
 
-
-
-# define ESC	65307
-# define W		119
-# define A		97
-# define S		115
-# define D		100
-# define CLOSE	17
+# define ESC 65307
+# define W 119
+# define A 97
+# define S 115
+# define D 100
+# define CLOSE 17
 // # define TILE_SIZE 32
 
 int			ft_strlen(const char *s);
+void		clear_imag(t_window *mlx);
 char		*get_next_line(int fd);
-void		parsi_map(char *path_file, t_window *mlx, t_map	*mp);
+void		parsi_map(char *path_file, t_window *mlx, t_map *mp);
 int			len_map(char *path_file);
-char		**get_map(char *path_file, int len);
-int			len_frst_line(char **map);
+char		**get_map(char *path_file, int len, t_map *mp);
+int			len_frst_line(char **map, t_map *mp);
 void		exit_map(char **map);
 void		free_map(char **map);
 int			ft_strstr(char *str, char *to_find);
-void		check_dot_ber(char *path_file);
-void		check_nonvalid(char **map);
+void		check_dot_ber(char *path_file, t_map *mp);
+void		check_nonvalid(char **map, t_map *mp);
 char		**map_copy(char **map, char *path_file);
 char		*ft_strdup(const char *s);
-void		foold_fill(int x, int y, char **map);
+void		flood_fill(int x, int y, char **map);
 int			check_element_copy(char **map, t_map *mp);
-void		check_word(char **map, char *path_file);
-void		check_word_two(char **map, char *path_file);
-void new_win(t_window *mlx, char **map);
+void		check_word(char **map, t_map *mp);
+void		check_word_two(char **map, char *path_file, t_map *mp);
+void		new_win(t_window *mlx, char **map);
+void		clear_win(t_window *mlx);
+int			sed(t_window *mlx);
+int			height_map(char **map);
+int			width_map(char **map);
+void		ft_bzero(void *s, size_t n);
+void		load_images(t_window *mlx);
+void		new_win(t_window *mlx, char **map);
+void		draw_map(t_window *mlx, char **map);
+void		mov_left(t_window *mlx);
+void		mov_right(t_window *mlx);
+void		mov_up(t_window *mlx);
+void		mov_down(t_window *mlx);
+void		ft_putstr_fd(char *s, int fd);
+void		ft_putnbr_fd(int n, int fd);
+void		ft_putchar_fd(char c, int fd);
+
 #endif
