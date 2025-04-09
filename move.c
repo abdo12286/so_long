@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 15:59:33 by atigzim           #+#    #+#             */
-/*   Updated: 2025/04/05 18:33:42 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/04/08 15:36:30 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	mov_down(t_window *mlx)
 		mlx->mp->pos_y++;
 		mlx->moves++;
 		ft_putnbr_fd(mlx->moves, 1);
-		ft_putstr_fd(" move\n", 1);
+		ft_putstr_fd(" move\r", 1);
 	}
 }
 
@@ -48,7 +48,7 @@ void	mov_left(t_window *mlx)
 		mlx->mp->pos_x--;
 		mlx->moves++;
 		ft_putnbr_fd(mlx->moves, 1);
-		ft_putstr_fd(" move\n", 1);
+		ft_putstr_fd(" move\r", 1);
 	}
 }
 
@@ -68,7 +68,7 @@ void	mov_right(t_window *mlx)
 		mlx->mp->pos_x++;
 		mlx->moves++;
 		ft_putnbr_fd(mlx->moves, 1);
-		ft_putstr_fd(" move\n", 1);
+		ft_putstr_fd(" move\r", 1);
 	}
 }
 
@@ -88,7 +88,7 @@ void	mov_up(t_window *mlx)
 		mlx->mp->pos_y--;
 		mlx->moves++;
 		ft_putnbr_fd(mlx->moves, 1);
-		ft_putstr_fd(" move\n", 1);
+		ft_putstr_fd(" move\r", 1);
 	}
 }
 

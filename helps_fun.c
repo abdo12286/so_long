@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 12:41:03 by atigzim           #+#    #+#             */
-/*   Updated: 2025/04/05 13:08:39 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/04/09 08:54:46 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,17 @@ void	new_win(t_window *mlx, char **map)
 {
 	mlx->height = height_map(map);
 	mlx->width = width_map(map);
-	mlx->window = mlx_new_window(mlx->mlx, mlx->width * 32, mlx->height * 32,
-			"so_long");
+	if (mlx->height > MAX_HEIGHT || mlx->width > MAX_WIDTH)
+	{
+		free(mlx->mp);
+		free_map(mlx->map);
+		mlx_destroy_display(mlx->mlx);
+		free(mlx->mlx);
+		write(1, "Error: map is too big\n", 23);
+		exit(1);
+	}
+	mlx->window = mlx_new_window(mlx->mlx, mlx->width * TILE_SIZE,
+			mlx->height * TILE_SIZE, "so_long");
 	load_images(mlx);
 	draw_map(mlx, map);
 }

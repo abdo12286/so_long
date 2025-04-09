@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 22:49:34 by atigzim           #+#    #+#             */
-/*   Updated: 2025/04/05 18:02:05 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/04/09 08:59:14 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,9 @@ typedef struct s_window
 # define S 115
 # define D 100
 # define CLOSE 17
-// # define TILE_SIZE 32
+# define MAX_HEIGHT 540
+# define MAX_WIDTH 960
+# define TILE_SIZE 32
 
 int			ft_strlen(const char *s);
 void		clear_imag(t_window *mlx);
@@ -100,5 +102,6 @@ void		mov_down(t_window *mlx);
 void		ft_putstr_fd(char *s, int fd);
 void		ft_putnbr_fd(int n, int fd);
 void		ft_putchar_fd(char c, int fd);
+int			ft_strncmp(const char *s1, const char *s2, size_t n);
 
 #endif
