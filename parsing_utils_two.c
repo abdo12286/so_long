@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 22:49:19 by atigzim           #+#    #+#             */
-/*   Updated: 2025/04/09 08:55:04 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/04/09 09:28:58 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ char	**get_map(char *path_file, int len, t_map *mp)
 	map[i] = NULL;
 	r_l_line = get_next_line(fd);
 	loop_map(r_l_line, fd, map, mp);
+	close(fd);
 	return (map);
 }
 

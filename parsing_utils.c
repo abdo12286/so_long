@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 22:49:22 by atigzim           #+#    #+#             */
-/*   Updated: 2025/04/09 08:53:32 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/04/09 09:07:38 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	check_word(char **map, t_map *mp)
 {
 	int (len_line), (len), (len_m), (i);
 	len_line = ft_strlen(map[0]) - 1;
-	if (len_line < 0)
+	if (len_line <= 0)
 		cl_exit(map, mp);
 	i = 1;
 	while (map[i])

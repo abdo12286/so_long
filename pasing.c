@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 22:49:25 by atigzim           #+#    #+#             */
-/*   Updated: 2025/04/05 18:03:01 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/04/09 09:25:45 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,5 +121,6 @@ void	parsi_map(char *path_file, t_window *mlx, t_map *mp)
 		free_map(a);
 		exit_map(mlx->map);
 	}
+	close(fd);
 	free_map(a);
 }
