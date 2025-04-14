@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 22:49:19 by atigzim           #+#    #+#             */
-/*   Updated: 2025/04/09 09:28:58 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/04/09 17:26:04 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,18 +76,29 @@ char	**get_map(char *path_file, int len, t_map *mp)
 
 void	check_dot_ber(char *path_file, t_map *mp)
 {
-	if (ft_strncmp(path_file + ft_strlen(path_file) -4, ".ber", 4))
+	int	i;
+
+	i = 0;
+	while (path_file[i])
 	{
-		free(mp);
-		write(1, "Error\n", 6);
-		write(1, "Only valid \".ber\" map files are allowed!", 41);
-		exit(1);
+		if (path_file[i] == '/' || ft_strlen(path_file) <= 4)
+		{
+			if (ft_strlen(&path_file[i + 1]) <= 4
+				|| ft_strlen(path_file) <= 4)
+			{
+				free(mp);
+				write(1, "Error\n", 6);
+				write(1, "Only valid \".ber\" map files are allowed!\n", 42);
+				exit(1);
+			}
+		}
+		i++;
 	}
-	if (ft_strstr(path_file, ".ber") == 0)
+	if (ft_strncmp(path_file + ft_strlen(path_file) - 4, ".ber", 4))
 	{
 		free(mp);
 		write(1, "Error\n", 6);
-		write(1, "I want file .ber", 17);
+		write(1, "Only valid \".ber\" map files are allowed!\n", 42);
 		exit(1);
 	}
 }
